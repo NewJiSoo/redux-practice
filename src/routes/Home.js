@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
-import { addToDo } from "../store";
+import { add } from "../store";
+import ToDo from '../components/ToDo';
 
 function Home() {
     const [text, setText] = useState("");
     const toDos = useSelector((state) => state);
+    console.log(toDos.toDos === Array)
     const dispatch = useDispatch();
 
     function onChange(e) {
@@ -13,7 +15,7 @@ function Home() {
 
     function onSubmit(e) {
         e.preventDefault(); // form 제출 기본 동작은 새로고침인데 이것을 방지하는 역할
-        dispatch(addToDo(text));
+        dispatch(add(text));
         setText("");
     }
 
@@ -25,8 +27,9 @@ function Home() {
                 <button>Add</button>
             </form>
             <ul>
-                {JSON.stringify(toDos)}
+                {toDos.map(toDo => <ToDo {...toDo} key={toDo.id} />)}
             </ul>
+
         </>
     )
 }
