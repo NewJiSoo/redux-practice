@@ -1,37 +1,32 @@
-import React, { useState } from 'react'
-import { useSelector, useDispatch } from "react-redux"
-import { add } from "../store";
-import ToDo from '../components/ToDo';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser, setUser } from "../redux/user/userSlice";
 
 function Home() {
-    const [text, setText] = useState("");
-    const toDos = useSelector((state) => state);
-    console.log(toDos.toDos === Array)
-    const dispatch = useDispatch();
+  const user = useSelector((state) => state.user); // 리덕스 상태 가져오기
+  const dispatch = useDispatch(); // 액션을 디스패치할 수 있는 함수
 
-    function onChange(e) {
-        setText(e.target.value);
-    }
+  const handleLogin = () => {
+    dispatch(setUser({ id: 3, email: "2@주소.com" }));
+  };
 
-    function onSubmit(e) {
-        e.preventDefault(); // form 제출 기본 동작은 새로고침인데 이것을 방지하는 역할
-        dispatch(add(text));
-        setText("");
-    }
-
-    return (
-        <>
-            <h1>To Do</h1>
-            <form onSubmit={onSubmit}>
-                <input type='text' value={text} onChange={onChange} />
-                <button>Add</button>
-            </form>
-            <ul>
-                {toDos.map(toDo => <ToDo {...toDo} key={toDo.id} />)}
-            </ul>
-
-        </>
-    )
+  const handleLogout = () => {
+    dispatch(clearUser()); // 로그아웃 처리
+  };
+  return (
+    <div>
+      <h1>Redux User Management</h1>
+      {user.id ? (
+        <div>
+          <p>하이, {user.email}!</p>
+        </div>
+      ) : (
+        <p>로그인해주세요</p>
+      )}
+      <button onClick={handleLogin}>로그인</button>
+      <button onClick={handleLogout}>로그아웃</button>
+    </div>
+  );
 }
 
 export default Home;
