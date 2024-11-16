@@ -5,12 +5,14 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import userReducer from "./user/userSlice";
 import timerReducer from "./timer/timerSlice";
+import authReducer from "./user/authSlice";
 import { persistReducer, persistStore } from "redux-persist";
 
 // 여러 리듀서를 결합
 const reducers = combineReducers({
   user: userReducer, // user 상태를 관리
   timer: timerReducer, // timer 상태를 관리
+  auth: authReducer,
 });
 
 // persist 설정
@@ -18,7 +20,7 @@ const persistConfig = {
   key: "root", // 최상위 상태를 영구 저장
   storage, // 저장소를 로컬 스토리지로 지정
   whitelist: ["user"], // user 상태만 영구 저장
-  blacklist: ["timer"], // timer 상태는 영구 저장에서 제외
+  blacklist: ["timer", "auth"], // timer 상태는 영구 저장에서 제외
 };
 
 // persistReducer로 감싸기

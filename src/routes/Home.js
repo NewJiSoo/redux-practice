@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser, setUser } from "../redux/user/userSlice";
 import { selectTimer, setTimer, tick } from "../redux/timer/timerSlice";
+import { clearToken, setToken } from "../redux/user/authSlice";
 
 function Home() {
   const user = useSelector(selectTimer); // 리덕스 상태 가져오기
@@ -14,6 +15,18 @@ function Home() {
     dispatch(tick());
   };
 
+  const token = useSelector((state) => state.auth.token);
+
+  const handleTokenClick = () => {
+    // dispatch(setTimer({ roundTime: 1 }));
+    dispatch(setToken("김토큰"));
+  };
+
+  const handleTokenRemove = () => {
+    // dispatch(setTimer({ roundTime: 1 }));
+    dispatch(clearToken());
+  };
+
   const handleLogin = () => {
     dispatch(setUser({ id: 3, email: "2@주소.com" }));
   };
@@ -23,6 +36,10 @@ function Home() {
   };
   return (
     <div>
+      <h1>토큰이당</h1>
+      <div>{token}</div>
+      <button onClick={handleTokenClick}>토큰 가져오기</button>
+      <button onClick={handleTokenRemove}>토큰 삭제하기</button>
       <h1>Redux User Management</h1>
       {user.id ? (
         <div>
