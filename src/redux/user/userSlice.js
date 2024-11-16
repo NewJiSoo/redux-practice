@@ -13,6 +13,9 @@ const initialState = {
 const userSlice = createSlice({
   name: "user", // Slice의 이름
   initialState, // 초기 상태
+  // 액션을 처리하고 상태를 업데이트할 함수들
+  // state: 리듀서에서 업데이트 하려는 대상
+  // action: 액션 객체
   reducers: {
     setUser: (state, action) => {
       // action.payload에서 전달된 user 정보를 받아서 상태 업데이트
