@@ -26,7 +26,7 @@ function Home() {
       <h1>Redux User Management</h1>
       {user.id ? (
         <div>
-          <p>하이, {user.email}!</p>
+          <p>하이,{user.email}!</p>
         </div>
       ) : (
         <p>로그인해주세요</p>
